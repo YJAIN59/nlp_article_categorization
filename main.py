@@ -57,8 +57,8 @@ import matplotlib.pyplot as plt
 # %%
 # import nltk
 # nltk.download('stopwords', download_dir=os.curdir)
-# from nltk.corpus import stopwords
-# stop=set(stopwords.words('english'))
+from nltk.corpus import stopwords
+stop=set(stopwords.words('english'))
 
 # # %%
 # from wordcloud import WordCloud
@@ -99,7 +99,7 @@ import matplotlib.pyplot as plt
 # %%
 import nltk
 from nltk.tokenize import word_tokenize
-nltk.download('punkt', download_dir=os.curdir)
+# nltk.download('punkt', download_dir=os.curdir)
 import re
 
 # %%
@@ -202,9 +202,13 @@ tfidf_vectorizer = TfidfVectorizer(encoding = 'utf-8',
 
 # **Load Model**
 
-def load_trained_model():
+# pickle.dump(tfidf_vectorizer, open('D:\ML\\article_sort\model\\trained_vectorizer.pkl','wb'))
+
+def load_trained_models():
+    label_encoder = pickle.load(open('D:\ML\\article_sort\model\\label_encoder.pkl','rb'))
     trained_model = pickle.load(open('D:\ML\\article_sort\model\\trained_model.pkl','rb'))
-    return trained_model
+    trained_vectorizer = pickle.load(open('D:\ML\\article_sort\model\\trained_vectorizer.pkl','rb'))
+    return label_encoder, trained_vectorizer, trained_model
 # **Testing Model**
 
 # %%
@@ -214,11 +218,11 @@ def load_trained_model():
 # data_raw_2.shape
 
 # %%
-def lets_predict(lr_model, fresh_data):
-    fresh_data_df = pd.DataFrame(fresh_data, columns=['Text'])
+def lets_predict(lr_model, trained_vectorizer, fresh_data):
+    fresh_data_df = pd.DataFrame([fresh_data], columns=['Text'])
     fresh_data_df['Text'] = fresh_data_df['Text'].apply(cleaning)
     fresh_data_values = fresh_data_df['Text'].values
-    fresh_data_transformed = tfidf_vectorizer.transform(fresh_data_values)
+    fresh_data_transformed = trained_vectorizer.transform(fresh_data_values)
     
     # return trained_model.predict(fresh_data_df)
     return lr_model.predict(fresh_data_transformed.toarray())
@@ -230,10 +234,11 @@ def lets_predict(lr_model, fresh_data):
 # %% [markdown]
 # **Trying one more Sample record**
 
-# %%
 # sample = pd.DataFrame(["Months before the assembly election in Karnataka, Bharatiya Janata Partys (BJP) senior leader and the state former Chief Minister SM Krishna announced his retirement from active politics on Wednesday"],columns=['Text'])
-
-# %%
-# lets_predict(lr_model, sample['Text'])
+# sample = "Months before the assembly election in Karnataka, Bharatiya Janata Partys (BJP) senior leader and the state former Chief Minister SM Krishna announced his retirement from active politics on Wednesday"
+# #
+# trained_vectorizer, trained_model = load_trained_models()
+# #
+# print(lets_predict(trained_model, trained_vectorizer, sample))
 
 
