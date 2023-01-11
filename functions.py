@@ -2,7 +2,7 @@ import os
 import pandas as pd
 import nltk
 from nltk.corpus import stopwords
-nltk.download('stopwords', download_dir=os.curdir)
+nltk.download('stopwords')
 stop = set(stopwords.words('english'))
 from sklearn.feature_extraction.text import TfidfVectorizer
 import pickle
