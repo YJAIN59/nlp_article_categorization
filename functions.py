@@ -32,11 +32,19 @@ tfidf_vectorizer = TfidfVectorizer(encoding='utf-8',
                                    norm='l2',
                                    sublinear_tf=True)
 
+if os.name == 'nt':
+    label_encoder_path = 'model\\label_encoder.pkl'
+    trained_model_path = 'model\\trained_model.pkl'
+    trained_vectorizer_path = 'model\\trained_vectorizer.pkl'
 
+else:
+    label_encoder_path = 'model/label_encoder.pkl'
+    trained_model_path = 'model/trained_model.pkl'
+    trained_vectorizer_path = 'model/trained_vectorizer.pkl'
 def load_trained_models():
-    label_encoder = pickle.load(open(r'model\\label_encoder.pkl', 'rb'))
-    trained_model = pickle.load(open(r'model\\trained_model.pkl', 'rb'))
-    trained_vectorizer = pickle.load(open(r'model\\trained_vectorizer.pkl', 'rb'))
+    label_encoder = pickle.load(open(label_encoder_path, 'rb'))
+    trained_model = pickle.load(open(trained_model_path, 'rb'))
+    trained_vectorizer = pickle.load(open(trained_vectorizer_path, 'rb'))
     return label_encoder, trained_vectorizer, trained_model
 
 
