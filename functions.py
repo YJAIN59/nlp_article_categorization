@@ -7,7 +7,7 @@ stop = set(stopwords.words('english'))
 from sklearn.feature_extraction.text import TfidfVectorizer
 import pickle
 from nltk.tokenize import word_tokenize
-# nltk.download('punkt', download_dir=os.curdir)
+nltk.download('punkt')
 import re
 
 
@@ -41,6 +41,8 @@ else:
     label_encoder_path = 'model/label_encoder.pkl'
     trained_model_path = 'model/trained_model.pkl'
     trained_vectorizer_path = 'model/trained_vectorizer.pkl'
+
+
 def load_trained_models():
     label_encoder = pickle.load(open(label_encoder_path, 'rb'))
     trained_model = pickle.load(open(trained_model_path, 'rb'))
