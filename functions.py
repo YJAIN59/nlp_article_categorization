@@ -34,9 +34,9 @@ tfidf_vectorizer = TfidfVectorizer(encoding='utf-8',
 
 
 def load_trained_models():
-    label_encoder = pickle.load(open('model\\label_encoder.pkl', 'rb'))
-    trained_model = pickle.load(open('model\\trained_model.pkl', 'rb'))
-    trained_vectorizer = pickle.load(open('model\\trained_vectorizer.pkl', 'rb'))
+    label_encoder = pickle.load(open(r'model\\label_encoder.pkl', 'rb'))
+    trained_model = pickle.load(open(r'model\\trained_model.pkl', 'rb'))
+    trained_vectorizer = pickle.load(open(r'model\\trained_vectorizer.pkl', 'rb'))
     return label_encoder, trained_vectorizer, trained_model
 
 
