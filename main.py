@@ -16,14 +16,14 @@ def predict():
     print(type(user_input))
     # user_input = data
     label_encoder, trained_transformer_model, trained_ml_model = load_trained_models()
-    prediction = check_prediction(user_input=user_input, trained_ml_model=trained_ml_model, trained_transformer_model=trained_transformer_model)
+    prediction = predict_category(user_input=user_input, trained_ml_model=trained_ml_model, trained_transformer_model=trained_transformer_model)
     # Return the result
     # label_encoder.inverse_transform(prediction)
     return jsonify({'category': label_encoder.inverse_transform(prediction).tolist()})
 
 
 
-def check_prediction(user_input, trained_ml_model, trained_transformer_model):
+def predict_category(user_input, trained_ml_model, trained_transformer_model):
     # user_input = user_input.apply(cleaning)
     prediction = lets_predict(lr_model=trained_ml_model, trained_vectorizer= trained_transformer_model, fresh_data= user_input)
     print("after prediction")
