@@ -1,4 +1,4 @@
-#Summarizer Branch 
+# Summarizer Branch 
 
 # NLTK data
 nltk.download('stopwords', download_dir=os.curdir)
